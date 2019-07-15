@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreProject.Domain.Interfaces\AspNetCoreProject.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\AspNetCoreProject.ServiceInterfaces\AspNetCoreProject.ServiceInterfaces.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreProject.Application.BusinessLogic\AspNetCoreProject.Application.BusinessLogic.csproj" />
+    <ProjectReference Include="..\AspNetCoreProject.Domain.Interfaces\AspNetCoreProject.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\AspNetCoreProject.Infrastructure.Data\AspNetCoreProject.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\AspNetCoreProject.ServiceInterfaces\AspNetCoreProject.ServiceInterfaces.csproj" />
+  </ItemGroup>
+
+</Project>
