@@ -1,19 +1,17 @@
 ﻿using System;
 using AspNetCoreProject.Infrastructure.Data.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
 
 namespace AspNetCoreProject.Infrastructure.Data.Context
 {
+
     public partial class InquirerContext : DbContext
     {
-        public InquirerContext()
-        {
-        }
-
         public InquirerContext(DbContextOptions<InquirerContext> options)
-            : base(options)
-        {
+            : base(options) {
         }
 
         public virtual DbSet<ActionPlanDb> Actionplans { get; set; }
@@ -28,10 +26,6 @@ namespace AspNetCoreProject.Infrastructure.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseMySQL("server=localhost;uid=root;pwd=1234;database=inquirer;");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

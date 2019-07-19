@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreProject.API.Logger;
 using AspNetCoreProject.Domain.Entities.Domain;
 using AspNetCoreProject.ServiceInterfaces.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -14,27 +16,39 @@ namespace AspNetCoreProject.API.Controllers
     {
         private readonly IQuestionnaireService _myService;
 
-        public QuestionnaireController(IQuestionnaireService myService)
-        {
+        public QuestionnaireController(IQuestionnaireService myService) {
             _myService = myService;
         }
 
-        [HttpGet(nameof(GetQuestionnaire))]
-        public ActionResult<Questionnaire> GetQuestionnaire(int questionnaireId = 1) {
-            var questionnaire = _myService.GetQuestionnaire(questionnaireId);
-            return questionnaire;
+        [HttpPut("OpenSession")]
+        public int OpenSession() => _myService.OpenSession();
+        
+        [HttpGet("Questionnaire")]
+        public ActionResult<Questionnaire> UploadQuestionnaire(int questionnaireId = 1) =>
+            _myService.GetQuestionnaire(questionnaireId);
+
+        [HttpGet("NextQuestion")]
+        public ActionResult<Question> NextQuestion(int questionId, int answerId, int sessionId) => 
+            _myService.GetNextQuestion(questionId, answerId, sessionId);
+
+        [HttpGet("FirstQuestionOfQuestionnaire")]
+        public ActionResult<Question> FirstQuestionOfQuestionnaire(int questionnaireId) =>
+            _myService.GetFirstQuestionOfQuestionnaire(questionnaireId);
+
+        [HttpGet("AnswerAction")]
+        public ActionResult<Domain.Entities.Domain.Action> AnswerAction(int answerId) =>
+            _myService.GetAnswerAction(answerId);
+
+        [HttpGet("DownloadQuestionnaireCSV")]
+        public FileResult DownloadQuestionnaireCSV(int questionnaireId) {
+            var stream = _myService.DownloadQuestionnaireCSV(questionnaireId);
+            return File(stream, "application/octet-stream", "questionnaire.csv");
         }
 
-        [HttpGet(nameof(GetNextQuestion))]
-        public ActionResult<Question> GetNextQuestion(Answer answer) {
-            var question = _myService.GetNextQuestion(answer);
-            return question;
-        }
-
-        [HttpGet(nameof(GetFirstQuestionOfQuestionnaire))]
-        public ActionResult<Question> GetFirstQuestionOfQuestionnaire(Questionnaire questionnaire) {
-            var question = _myService.GetFirstQuestionOfQuestionnaire(questionnaire);
-            return question;
+        [HttpGet("DownloadQuestionnaireJSON")]
+        public FileResult DownloadQuestionnaireJSON(int questionnaireId) {
+            var stream = _myService.DownloadQuestionnaireJSON(questionnaireId);
+            return File(stream, "application/octet-stream", "questionnaire.json");
         }
     }
 }

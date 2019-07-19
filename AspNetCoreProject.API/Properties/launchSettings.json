@@ -20,7 +20,7 @@
     "AspNetCoreProject.API": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/myapi/get",
+      "launchUrl": "api/Questionnaire/GetQuestionnaire",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
